@@ -85,9 +85,24 @@ Adding a new weather source means a new `WeatherProvider`
 subclass plus an extension to `mapper.py`. It does **not**
 mean touching the scene code.
 
+## Workflow
+
+ATMOS follows a `develop`-based workflow. The `main` branch is reserved for stable releases; normal feature and bugfix work targets `develop`.
+
+1. Fork ATMOS
+2. Sync your fork
+3. Create a feature/fix branch from `develop`
+4. Make a focused change
+5. Run tests
+6. Push the branch
+7. Open a Pull Request targeting `develop`
+8. Maintainers review and merge
+
+Urgent hotfixes for the current stable release branch off `main`, merge to `main` via PR, and are then synced back into `develop`.
+
 ## Branch naming
 
-Branch off `main`. One branch per Issue. Use the matching
+Branch off `develop`. `main` is reserved for stable releases. One branch per Issue. Use the matching
 Conventional Commit prefix so the branch name reads as the
 title of the work:
 
@@ -166,7 +181,7 @@ cap, and the entry-point import surface. Add a test in
 
 The CI workflow (`.github/workflows/ci.yml`) runs the same
 `pytest` on `ubuntu-latest` and `windows-latest` for every
-push to `main` and every PR.
+push to `main` or `develop` and every PR.
 
 The standalone binary build is also tested in CI via
 `python build.py && ./dist/atmos.exe --version`. Run it
@@ -254,10 +269,10 @@ Checklist before opening a PR:
 - [ ] No secrets, no local paths, no generated build
       artifacts (`dist/`, `build/`, `__pycache__/`) in the
       diff.
-- [ ] Branch is up to date with `main` (rebase, do not merge).
+- [ ] Branch is up to date with `develop` (rebase, do not merge).
 
-Open the PR against `main`. The CI workflow will run; the
-release workflow only runs on tag push. A maintainer review
+Open the PR against `develop`. The CI workflow will run; the
+release workflow only runs on tag push from `main`. A maintainer review
 follows; the branch is squash-merged and deleted.
 
 ## Code of conduct

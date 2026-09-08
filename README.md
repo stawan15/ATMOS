@@ -15,7 +15,7 @@ that lives in your terminal.
 
 ## Preview
 
-<img src="assets/demo.svg" alt="ATMOS — four scenes (rain, clear night, storm, snow)" width="800">
+<img src="assets/demo.gif" alt="ATMOS — four scenes (rain, clear night, storm, snow)" width="800">
 
 
 ```text
@@ -191,10 +191,6 @@ Windows (PowerShell or cmd):
 ```powershell
 .venv\Scripts\activate
 ```
-
-> The `# Windows` comment is a hint, not a literal shell command.
-> Run the block above; the Windows activate path shown below is
-> the only Windows-specific line.
 
 ### Standalone binary
 
@@ -422,10 +418,15 @@ interpreter.
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the short guide. The
-project keeps its contribution surface small on purpose — open an
-issue before sending large changes.
+ATMOS uses a `develop`-based branching workflow:
 
+```text
+main     → stable / release
+develop  → next-release integration
+feat/*   → individual changes
+```
+
+Normal development PRs target `develop`. See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for full instructions and branch guidelines.
 ---
 
 ## License

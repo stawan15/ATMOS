@@ -13,31 +13,30 @@
 # To rename a label: change the `from` field on an existing entry
 # and run the workflow. The script will rename the old label.
 
-labels:
-  - name: bug
-    color: "d73a4a"
-    description: "Something is broken or behaving wrong."
+- name: bug
+  color: "d73a4a"
+  description: "Something is broken or behaving wrong."
 
-  - name: enhancement
-    color: "0e8a16"
-    description: "New user-visible behavior, new scene, or new feature."
+- name: enhancement
+  color: "0e8a16"
+  description: "New user-visible behavior, new scene, or new feature."
 
-  - name: documentation
-    color: "0075ca"
-    description: "Improvements or additions to documentation (README, CONTRIBUTING, comments)."
+- name: documentation
+  color: "0075ca"
+  description: "Improvements or additions to documentation (README, CONTRIBUTING, comments)."
 
-  - name: performance
-    color: "6f42c1"
-    description: "Performance improvement: terminal I/O, particle counts, frame-buffer diff."
+- name: performance
+  color: "6f42c1"
+  description: "Performance improvement: terminal I/O, particle counts, frame-buffer diff."
 
-  - name: testing
-    color: "1d76db"
-    description: "Tests only. Adding a regression test, expanding coverage, or fixing test infrastructure."
+- name: testing
+  color: "1d76db"
+  description: "Tests only. Adding a regression test, expanding coverage, or fixing test infrastructure."
 
-  - name: good first issue
-    color: "7057ff"
-    description: "A small, well-scoped task that is friendly to first-time contributors."
+- name: good first issue
+  color: "7057ff"
+  description: "A small, well-scoped task that is friendly to first-time contributors."
 
-  - name: help wanted
-    color: "008672"
-    description: "The maintainer is asking the community for help on this one."
+- name: help wanted
+  color: "008672"
+  description: "The maintainer is asking the community for help on this one."
