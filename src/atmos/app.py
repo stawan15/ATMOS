@@ -31,7 +31,12 @@ from atmos.config import Config, update_resolved_location
 from atmos.engine.animation import AnimationLoop
 from atmos.engine.companion import WeatherCompanion
 from atmos.engine.frame_buffer import FrameBuffer
-from atmos.engine.input import InputManager, KeyEvent, is_action_char
+from atmos.engine.input import (
+    InputManager,
+    KeyEvent,
+    action_for_char,
+    is_action_char,
+)
 from atmos.engine.layout import LayoutManager
 from atmos.engine.lighting import LightingState, compute_lighting
 from atmos.engine.terminal import TerminalContext
@@ -197,14 +202,18 @@ def _handle_global(
 ) -> bool:
     if key is None:
         return False
-    if key.action == "quit":
+    action = key.action
+    if action == "char" and key.char is not None:
+        action = action_for_char(key.char.lower())
+
+    if action == "quit":
         loop.stop()
         return True
-    if key.action == "plus":
+    if action == "plus":
         loop.target_fps = min(60, loop.target_fps + 5)
-    elif key.action == "minus":
+    elif action == "minus":
         loop.target_fps = max(5, loop.target_fps - 5)
-    elif key.action == "refresh" and allow_network:
+    elif action == "refresh" and allow_network:
         refresher.request_refresh()
     return False
 
@@ -613,11 +622,12 @@ def _run_no_data_loop(
         key = inp.read(0.05)
         if key is None:
             continue
-        if key.action == "quit":
+        action = key.action
+        if action == "char" and key.char is not None:
+            action = action_for_char(key.char.lower())
+        if action == "quit":
             return 0
-        if key.action == "refresh" or (
-            key.action == "char" and (key.char or "").lower() == "r"
-        ):
+        if action == "refresh":
             state, forecast, location, reason = _resolve_initial(
                 cfg,
                 location_override=None,

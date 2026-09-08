@@ -131,7 +131,7 @@ def test_cli_demo_accepts_all_scene_conditions() -> None:
 
 def test_global_shortcuts_change_loop_state() -> None:
     from atmos.app import _handle_global
-    from atmos.engine.input import KeyEvent
+    from atmos.engine.input import KeyEvent, _parse
 
     class FakeLoop:
         target_fps = 30
@@ -152,9 +152,9 @@ def test_global_shortcuts_change_loop_state() -> None:
     assert loop.target_fps == 35
     _handle_global(KeyEvent("minus"), loop=loop, refresher=refresher)
     assert loop.target_fps == 30
-    _handle_global(KeyEvent("refresh"), loop=loop, refresher=refresher)
+    _handle_global(_parse("r"), loop=loop, refresher=refresher)
     assert refresher.refresh_requested is True
-    _handle_global(KeyEvent("quit"), loop=loop, refresher=refresher)
+    _handle_global(_parse("q"), loop=loop, refresher=refresher)
     assert loop.stopped is True
 
 
