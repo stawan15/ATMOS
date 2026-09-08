@@ -571,3 +571,35 @@ def test_partly_cloudy_draws_sprite_cells_not_entire_rows() -> None:
     buf = FrameBuffer.empty(80, 24)
     scene.draw(buf)
     assert all(len(char) == 1 for row in buf.cells for char, _ in row)
+
+
+def test_fog_draws_layer_characters_into_frame_buffer() -> None:
+    from atmos.engine.frame_buffer import FrameBuffer
+    from atmos.scenes.fog import FogScene
+    from atmos.weather.models import WeatherState
+
+    state = WeatherState(
+        location_name="Seattle",
+        country_code="US",
+        temperature=12.0,
+        feels_like=12.0,
+        humidity=98,
+        wind_speed=3.0,
+        wind_direction=180.0,
+        precipitation=0.0,
+        precipitation_probability=0.0,
+        cloud_coverage=80.0,
+        condition="fog",
+        local_time=datetime(2026, 9, 7, 21, 0, 0),
+    )
+    scene = FogScene()
+    scene.enter(state)
+    scene.update(0.0, state, 80, 24)
+    buf = FrameBuffer.empty(80, 24)
+    scene.draw(buf)
+
+    assert any(
+        char != " " and style == "240"
+        for row in buf.cells
+        for char, style in row
+    )

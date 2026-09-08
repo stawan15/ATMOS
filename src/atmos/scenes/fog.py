@@ -73,3 +73,10 @@ class FogScene(SceneBase):
             return
         for layer in self.layers:
             start_x = int(layer["x"])
+            y = int(layer["y"])
+            if y < 0 or y >= buf.height:
+                continue
+            for offset, char in enumerate(layer["chars"]):
+                x = start_x + offset
+                if 0 <= x < buf.width and char != " ":
+                    buf.set(y, x, char, "240")
